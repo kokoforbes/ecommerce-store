@@ -17,7 +17,7 @@ const Summary = () => {
     0
   );
 
-  const taxRate = 0.1;
+  const taxRate = 0.2;
   const taxAmount = totalPrice * taxRate;
 
   // Total including tax
@@ -56,7 +56,7 @@ const Summary = () => {
 
         {/* Tax */}
         <div className='flex items-center justify-between pt-4'>
-          <div className='text-base font-medium text-gray-400'>Tax (10%)</div>
+          <div className='text-base font-medium text-gray-400'>Tax (20%)</div>
           <Currency value={taxAmount} />
         </div>
 
