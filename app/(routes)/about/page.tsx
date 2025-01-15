@@ -5,7 +5,7 @@ const AboutPage = () => {
   return (
     <div className='bg-white'>
       <Container>
-        <div className='px-4 py-10 sm:px-6 lg:px-8 h-full'>
+        <div className='px-4 py-10 sm:px-6 lg:px-8 h-full '>
           <div className='flex justify-between items-center mb-6'>
             <h1 className='text-3xl font-bold'>About StyleHub</h1>
             <Link

@@ -40,7 +40,7 @@ const FAQPage = () => {
   );
 
   return (
-    <div className='bg-white px-4 py-8 min-h-screen'>
+    <div className='bg-white px-4 py-8'>
       <Container>
         <div className='flex justify-between items-center mb-6'>
           <h1 className='text-3xl font-bold'>Frequently Asked Questions</h1>
