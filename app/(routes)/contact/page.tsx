@@ -21,13 +21,17 @@ import {
 import { Label } from "@/components/ui/label";
 
 import { toast } from "react-hot-toast";
+import { useState } from "react";
 
 // Validation schema using zod
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
   subject: z.string().min(1, "Subject is required"),
   email: z.string().email("Invalid email address"),
-  content: z.string().min(10, "Content must be at least 10 characters"),
+  content: z
+    .string()
+    .min(10, "Content must be at least 10 characters")
+    .max(200, "Content must not exceed 200 words"),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -42,15 +46,23 @@ const ContactPage = () => {
     resolver: zodResolver(formSchema),
   });
 
+  const [wordCount, setWordCount] = useState(0); // Track word count
+
   const onSubmit = (data: FormData) => {
     postMessage(data).then((response) => {
       if (response.success) {
         toast.success("Message sent successfully.");
         reset();
+        setWordCount(0);
       } else {
         toast.error("Failed to send message.");
       }
     });
+  };
+
+  const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const words = e.target.value.trim();
+    setWordCount(words.length);
   };
 
   return (
@@ -131,7 +143,12 @@ const ContactPage = () => {
                     {...register("content")}
                     placeholder='Enter your message'
                     className='mt-1'
+                    onChange={handleContentChange}
                   />
+
+                  <div className='text-sm text-gray-500 mt-1'>
+                    {wordCount}/200 words
+                  </div>
                   {errors.content && (
                     <p className='text-red-500 text-sm'>
                       {errors.content.message}
