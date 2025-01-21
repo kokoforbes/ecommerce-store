@@ -1,5 +1,6 @@
 import Container from "@/components/ui/container";
 import Link from "next/link";
+import { UserButton } from "@clerk/nextjs";
 import MainNav from "@/components/main-nav";
 import getCategories from "@/actions/get-categories";
 import NavbarActions from "./navbar-actions";
@@ -18,6 +19,7 @@ const Navbar = async () => {
           </Link>
           <MainNav data={categories || []} />
           <NavbarActions />
+          <UserButton />
         </div>
       </Container>
     </div>

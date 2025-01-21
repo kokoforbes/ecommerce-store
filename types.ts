@@ -36,3 +36,10 @@ export interface Color {
   name: string;
   value: string;
 }
+
+export interface Contact {
+  name: string;
+  subject: string;
+  email: string;
+  content: string;
+}

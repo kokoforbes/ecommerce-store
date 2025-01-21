@@ -1,21 +1,56 @@
 "use client";
-
-import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 import Button from "@/components/ui/button";
 import Link from "next/link";
 
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import Container from "@/components/ui/container";
 
-const ContactPage = () => {
-  const [message, setMessage] = useState("");
+import postMessage from "@/actions/post-message";
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Message submitted:", message);
-    setMessage("");
-    alert("Message sent successfully!");
+import { useForm } from "react-hook-form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+
+import { toast } from "react-hot-toast";
+
+// Validation schema using zod
+const formSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  subject: z.string().min(1, "Subject is required"),
+  email: z.string().email("Invalid email address"),
+  content: z.string().min(10, "Content must be at least 10 characters"),
+});
+
+type FormData = z.infer<typeof formSchema>;
+
+const ContactPage = () => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: zodResolver(formSchema),
+  });
+
+  const onSubmit = (data: FormData) => {
+    postMessage(data).then((response) => {
+      if (response.success) {
+        toast.success("Message sent successfully.");
+        reset();
+      } else {
+        toast.error("Failed to send message.");
+      }
+    });
   };
 
   return (
@@ -32,34 +67,83 @@ const ContactPage = () => {
               Back Home
             </Link>
           </div>
-          <form onSubmit={handleSubmit} className='max-w-md'>
-            <div className='mb-4'>
-              <label htmlFor='name' className='block mb-2'>
-                Name
-              </label>
-              <Input type='text' id='name' required />
-            </div>
-            <div className='mb-4'>
-              <label htmlFor='email' className='block mb-2'>
-                Email
-              </label>
-              <Input type='email' id='email' required />
-            </div>
-            <div className='mb-4'>
-              <label htmlFor='message' className='block mb-2'>
-                Message (max 200 words)
-              </label>
-              <Textarea
-                id='message'
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                maxLength={200}
-                required
-                className='h-32'
-              />
-            </div>
-            <Button type='submit'>Send Message</Button>
-          </form>
+
+          <Card className='max-w-md mx-auto p-6'>
+            <CardHeader>
+              <CardTitle>Contact Us</CardTitle>
+            </CardHeader>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <CardContent className='space-y-4'>
+                {/* Name */}
+                <div>
+                  <Label htmlFor='name'>Name</Label>
+                  <Input
+                    id='name'
+                    {...register("name")}
+                    placeholder='Enter your name'
+                    className='mt-1'
+                  />
+                  {errors.name && (
+                    <p className='text-red-500 text-sm'>
+                      {errors.name.message}
+                    </p>
+                  )}
+                </div>
+
+                {/* Subject */}
+                <div>
+                  <Label htmlFor='subject'>Subject</Label>
+                  <Input
+                    id='subject'
+                    {...register("subject")}
+                    placeholder='Enter the subject'
+                    className='mt-1'
+                  />
+                  {errors.subject && (
+                    <p className='text-red-500 text-sm'>
+                      {errors.subject.message}
+                    </p>
+                  )}
+                </div>
+
+                {/* Email */}
+                <div>
+                  <Label htmlFor='email'>Email</Label>
+                  <Input
+                    id='email'
+                    type='email'
+                    {...register("email")}
+                    placeholder='Enter your email'
+                    className='mt-1'
+                  />
+                  {errors.email && (
+                    <p className='text-red-500 text-sm'>
+                      {errors.email.message}
+                    </p>
+                  )}
+                </div>
+
+                {/* Content */}
+                <div>
+                  <Label htmlFor='content'>Content</Label>
+                  <Textarea
+                    id='content'
+                    {...register("content")}
+                    placeholder='Enter your message'
+                    className='mt-1'
+                  />
+                  {errors.content && (
+                    <p className='text-red-500 text-sm'>
+                      {errors.content.message}
+                    </p>
+                  )}
+                </div>
+              </CardContent>
+              <CardFooter className='flex justify-end'>
+                <Button type='submit'>Submit</Button>
+              </CardFooter>
+            </form>
+          </Card>
         </div>
       </Container>
     </div>

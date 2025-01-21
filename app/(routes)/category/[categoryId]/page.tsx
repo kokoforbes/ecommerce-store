@@ -31,7 +31,6 @@ const CategoryPage = async ({
   const sizes = await getSizes();
   const colors = await getColors();
   const category = await getCategory(categoryId);
-  console.log(category);
   return (
     <div className='bg-white'>
       <Container>
