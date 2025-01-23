@@ -43,7 +43,7 @@ export default function RootLayout({
           <ModalProvider />
           <ToastProvider />
           <Navbar />
-          <div className='min-h-screen'>{children}</div>
+          <div className='min-h-screen pb-24'>{children}</div>
           <Footer />
         </body>
       </html>

@@ -18,8 +18,10 @@ const Navbar = async () => {
             <p className='text-xl font-bold'>STORE</p>
           </Link>
           <MainNav data={categories || []} />
-          <NavbarActions />
-          <UserButton />
+          <div className='flex items-center ml-auto space-x-4'>
+            <NavbarActions />
+            <UserButton />
+          </div>
         </div>
       </Container>
     </div>

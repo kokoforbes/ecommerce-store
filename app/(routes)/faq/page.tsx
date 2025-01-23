@@ -28,6 +28,61 @@ const faqs = [
     answer:
       "Once your order ships, you will receive a tracking number via email.",
   },
+  {
+    question: "What payment methods do you accept?",
+    answer:
+      "We accept all major credit cards, PayPal, and Apple Pay for secure and easy payments.",
+  },
+  {
+    question: "Can I change or cancel my order after placing it?",
+    answer:
+      "You can request changes or cancellations within 12 hours of placing your order. Please contact our customer support team as soon as possible.",
+  },
+  {
+    question: "Do you offer gift wrapping?",
+    answer:
+      "Yes, we offer gift wrapping for an additional fee. You can select this option during checkout.",
+  },
+  {
+    question: "Are there any discounts for bulk orders?",
+    answer:
+      "Yes, we offer discounts for bulk purchases. Please contact our sales team for more information.",
+  },
+  {
+    question: "What should I do if my item arrives damaged?",
+    answer:
+      "If your item arrives damaged, please contact us within 48 hours of delivery with photos of the damage, and we will assist you with a replacement or refund.",
+  },
+  {
+    question: "Do you have a loyalty program?",
+    answer:
+      "Yes, we have a loyalty program where you can earn points for purchases and redeem them for discounts or free products.",
+  },
+  {
+    question: "How do I create an account?",
+    answer:
+      "You can create an account by clicking on the 'Sign Up' button on the top-right corner of our website and filling out the registration form.",
+  },
+  {
+    question: "Can I return a sale item?",
+    answer:
+      "Sale items are final and cannot be returned unless they arrive damaged or defective.",
+  },
+  {
+    question: "Do you provide product warranties?",
+    answer:
+      "Yes, many of our products come with a manufacturer's warranty. Details are included with the product or available on the product page.",
+  },
+  {
+    question: "How can I contact customer service?",
+    answer:
+      "You can contact our customer service team via email at support@example.com or by calling our toll-free number at 1-800-123-4567.",
+  },
+  {
+    question: "Do you offer eco-friendly packaging?",
+    answer:
+      "Yes, we are committed to sustainability and use eco-friendly packaging whenever possible.",
+  },
 ];
 
 const FAQPage = () => {
@@ -52,7 +107,7 @@ const FAQPage = () => {
           </Link>
         </div>
 
-        <div className='mb-6'>
+        <div className='mb-16'>
           <Input
             type='search'
             placeholder='Search FAQs...'
